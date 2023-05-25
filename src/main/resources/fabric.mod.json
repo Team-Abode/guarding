@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "template",
+  "id": "guarding",
   "version": "${version}",
 
-  "name": "Template Mod",
-  "description": "Template Description",
+  "name": "Guarding",
+  "description": "A small mod expanding shields with new enchantments, mechanics and more!",
   "authors": [
     "Team Abode"
   ],
   "contact": {
     "homepage": "https://twitter.com/TeamAbodeMC",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/Team-Abode/guarding"
   },
   "license": "All Rights Reserved",
   "icon": "assets/template/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.teamabode.template.TemplateMod"
+      "com.teamabode.template.Guarding"
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "guarding.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.17",
