@@ -1,26 +1,44 @@
 package com.teamabode.guarding.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SimpleAnimatedParticle;
-import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
-public class ParryParticle extends SimpleAnimatedParticle {
+public class ParryParticle extends TextureSheetParticle {
     private final RandomSource random;
+    private final SpriteSet sprites;
 
-    public ParryParticle(ClientLevel clientLevel, double x, double y, double z, SpriteSet spriteSet) {
-        super(clientLevel, x, y, z, spriteSet, 0.0f);
+    public ParryParticle(ClientLevel clientLevel, double x, double y, double z, SpriteSet sprites) {
+        super(clientLevel, x, y, z, 0.0f, 0.0f, 0.0f);
         this.random = RandomSource.create();
-        this.age = 5;
+        this.sprites = sprites;
+        this.lifetime = 6;
         this.quadSize = 1.0f;
         float tint = this.random.nextFloat() * 0.6f + 0.4f;
         this.rCol = tint;
         this.gCol = tint;
         this.bCol = tint;
-        this.setSpriteFromAge(spriteSet);
+        this.setSpriteFromAge(sprites);
+    }
+
+    public int getLightColor(float partialTick) {
+        return 15728880;
+    }
+
+    public void tick() {
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
+        if (this.age++ >= this.lifetime) {
+            this.remove();
+        } else {
+            this.setSpriteFromAge(this.sprites);
+        }
+    }
+
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {

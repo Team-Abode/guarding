@@ -1,7 +1,7 @@
 package com.teamabode.guarding.client;
 
 import com.teamabode.guarding.client.particle.ParryParticle;
-import com.teamabode.guarding.core.registry.GuardingParticles;
+import com.teamabode.guarding.core.init.GuardingParticles;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 

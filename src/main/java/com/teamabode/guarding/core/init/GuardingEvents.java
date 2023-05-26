@@ -1,6 +1,6 @@
-package com.teamabode.guarding.core.registry;
+package com.teamabode.guarding.core.init;
 
-import com.teamabode.guarding.core.api.GuardingEvents;
+import com.teamabode.guarding.Guarding;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -17,11 +17,11 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class GuardingCallbacks {
+public class GuardingEvents {
 
     public static void init() {
-        GuardingEvents.SHIELD_BLOCKED.register(GuardingCallbacks::onShieldBlock);
-        GuardingEvents.SHIELD_DISABLED.register(GuardingCallbacks::onShieldDisabled);
+        com.teamabode.guarding.core.api.GuardingEvents.SHIELD_BLOCKED.register(GuardingEvents::onShieldBlock);
+        com.teamabode.guarding.core.api.GuardingEvents.SHIELD_DISABLED.register(GuardingEvents::onShieldDisabled);
     }
 
     private static void onShieldBlock(Player user, DamageSource source, float amount) {
@@ -30,10 +30,12 @@ public class GuardingCallbacks {
 
         if (sourceEntity instanceof LivingEntity attacker) {
             if (isParry) {
+                float exhaustion = Guarding.CONFIG.getGroup("parry").getFloatProperty("exhaustion_cost");
                 float strength = getKnockbackStrength(user.getUseItem());
+
+                user.causeFoodExhaustion(exhaustion);
                 attacker.knockback(strength, user.getX() - attacker.getX(), user.getZ() - attacker.getZ());
                 attacker.hurtMarked = true;
-                isParry = true;
             }
             handleBarbed(user, attacker, isParry);
         }
@@ -45,21 +47,25 @@ public class GuardingCallbacks {
 
     private static void handleBarbed(Player user, LivingEntity attacker, boolean isParry) {
         RandomSource random = user.getRandom();
-        float chance = 0.15f, damage = 2.0f; // Will be changed later when config is implemented
-        damage += isParry ? 1.0f : 0.0f;
+        float damage = Guarding.CONFIG.getGroup("barbed").getFloatProperty("damage_amount");
+        float chance = Guarding.CONFIG.getGroup("barbed").getFloatProperty("damage_chance");
+        int barbedLevel = EnchantmentHelper.getItemEnchantmentLevel(GuardingEnchantments.BARBED, user.getUseItem());
+        if (barbedLevel <= 0) return;
+        damage += isParry ? 1.0f : 0.0f; // Parrying will cause barbed to increase it's power.
 
-        if (EnchantmentHelper.getItemEnchantmentLevel(GuardingEnchantments.BARBED, user.getUseItem()) <= 0) return;
-        if (random.nextFloat() > chance && !isParry) return;
-
-        attacker.hurt(attacker.damageSources().thorns(user), damage);
+        if ((random.nextFloat() <= chance && chance > 0.0f) || isParry || chance >= 1.0f) {
+            attacker.hurt(attacker.damageSources().thorns(user), damage);
+            user.hurtCurrentlyUsedShield(2.0f);
+        }
     }
 
     private static float getKnockbackStrength(ItemStack stack) {
-        float strength = 0.5f; // Will be changed later when config is implemented
-        int pummelLevel = EnchantmentHelper.getItemEnchantmentLevel(GuardingEnchantments.PUMMELING, stack);
-        float pummelStrength = pummelLevel > 0 ? pummelLevel * 0.15f : 0.0f;
+        float baseStrength = Guarding.CONFIG.getGroup("parry").getFloatProperty("knockback_strength");
+        float additionalStrength = Guarding.CONFIG.getGroup("pummeling").getFloatProperty("additional_knockback_strength_per_level");
+        int pummelingLevel = EnchantmentHelper.getItemEnchantmentLevel(GuardingEnchantments.PUMMELING, stack);
+        float pummelStrength = pummelingLevel > 0 ? pummelingLevel * additionalStrength : 0.0f;
 
-        return strength + pummelStrength;
+        return baseStrength + pummelStrength;
     }
 
     private static void parryEffects(Player user, Entity sourceEntity) {
@@ -74,12 +80,13 @@ public class GuardingCallbacks {
     private static void onShieldDisabled(Player user, LivingEntity attacker) {
         ItemStack useItem = user.getUseItem();
         int retributionLevel = EnchantmentHelper.getItemEnchantmentLevel(GuardingEnchantments.RETRIBUTION, useItem);
+        int amplifier = Guarding.CONFIG.getGroup("retribution").getIntProperty("slowness_amplifier");
 
         if (retributionLevel > 0) {
             List<LivingEntity> list = attacker.getLevel().getEntitiesOfClass(LivingEntity.class, user.getBoundingBox().inflate(3.0d, 0.0d, 3.0d), livingEntity -> isEnemy(user, livingEntity));
 
             for (LivingEntity livingEntity : list) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, retributionLevel * 100, 2, false, true));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, retributionLevel * 50, amplifier, true, true));
             }
         }
     }

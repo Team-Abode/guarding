@@ -17,6 +17,13 @@ repositories {
 			includeGroup "com.github.Chocohead"
 		}
 	}
+	maven {
+		url = uri("https://maven.pkg.github.com/team-abode/scribe-wip")
+		credentials {
+			username = "ExDrill"
+			password = "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"
+		}
+	}
 }
 
 loom {
@@ -33,6 +40,10 @@ dependencies {
 	// Fabric
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	// Scribe
+	modApi "com.teamabode:scribe:${rootProject.scribe_version}"
+	include "com.teamabode:scribe:${rootProject.scribe_version}"
 
 	// Fabric ASM
 	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"

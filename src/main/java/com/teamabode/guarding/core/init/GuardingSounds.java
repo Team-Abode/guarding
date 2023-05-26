@@ -1,4 +1,4 @@
-package com.teamabode.guarding.core.registry;
+package com.teamabode.guarding.core.init;
 
 import com.teamabode.guarding.Guarding;
 import net.minecraft.core.Registry;
