@@ -11,6 +11,16 @@ repositories {
 		name = 'ParchmentMC'
 		url = 'https://maven.parchmentmc.org'
 	}
+	maven {
+		url = 'https://jitpack.io'
+		content {
+			includeGroup "com.github.Chocohead"
+		}
+	}
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/guarding.accesswidener")
 }
 
 dependencies {
@@ -20,8 +30,13 @@ dependencies {
 		parchment("org.parchmentmc.data:parchment-${project.parchment_version}@zip")
 	}
 
+	// Fabric
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	// Fabric ASM
+	modImplementation "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
+	include "com.github.Chocohead:Fabric-ASM:${fabric_asm_version}"
 }
 
 base {

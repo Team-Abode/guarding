@@ -1,9 +1,16 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.teamabode.template.mixin",
+  "plugin": "com.teamabode.guarding.core.mixin.GuardingMixinConfigPlugin",
+  "package": "com.teamabode.guarding.core.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "api.ShieldBlockedMixin",
+    "api.ShieldDisabledMixin",
+    "api.ShieldEnchantabilityMixin",
+    "gameplay.EnchantmentCategoryMixin",
+    "gameplay.ShieldDelayMixin"
+  ],
   "client": [],
   "injectors": {
     "defaultRequire": 1

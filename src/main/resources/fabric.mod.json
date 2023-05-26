@@ -13,13 +13,20 @@
     "sources": "https://github.com/Team-Abode/guarding"
   },
   "license": "All Rights Reserved",
-  "icon": "assets/template/icon.png",
+  "icon": "assets/guarding/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.teamabode.template.Guarding"
+      "com.teamabode.guarding.Guarding"
+    ],
+    "client": [
+      "com.teamabode.guarding.client.GuardingClient"
+    ],
+    "mm:early_risers": [
+      "com.teamabode.guarding.core.api.asm.GuardingEarlyRiser"
     ]
   },
+  "accessWidener": "guarding.accesswidener",
   "mixins": [
     "guarding.mixins.json"
   ],
