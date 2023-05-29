@@ -11,6 +11,6 @@ public class ShieldEnchantabilityMixin extends Item {
     }
 
     public int getEnchantmentValue() {
-        return 15;
+        return 9;
     }
 }

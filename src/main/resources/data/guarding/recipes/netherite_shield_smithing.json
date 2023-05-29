@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "minecraft:shield"
+  },
+  "result": {
+    "item": "guarding:netherite_shield"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "guarding:netherite_shield_enabled"
+    },
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:features_enabled",
+        "features": [
+          "minecraft:update_1_20"
+        ]
+      }
+    }
+  ]
+}
