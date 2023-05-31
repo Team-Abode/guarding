@@ -2,6 +2,7 @@ package com.teamabode.guarding.core.init;
 
 import com.teamabode.guarding.Guarding;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -70,7 +71,8 @@ public class GuardingEvents {
 
     private static void parryEffects(Player user, Entity sourceEntity) {
         Level level = user.getLevel();
-        level.playSound(null, user.blockPosition(), GuardingSounds.ITEM_SHIELD_PARRY, SoundSource.PLAYERS);
+        SoundEvent breakSound = user.getUseItem().is(GuardingItems.NETHERITE_SHIELD) ? GuardingSounds.ITEM_NETHERITE_SHIELD_PARRY : GuardingSounds.ITEM_SHIELD_PARRY;
+        level.playSound(null, user.blockPosition(), breakSound, SoundSource.PLAYERS);
 
         if (level instanceof ServerLevel server && sourceEntity != null) {
             server.sendParticles(GuardingParticles.PARRY, sourceEntity.getX(), sourceEntity.getEyeY(), sourceEntity.getZ(), 1, 0.0d, 0.0d, 0.0d, 0.0d);

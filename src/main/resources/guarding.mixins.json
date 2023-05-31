@@ -10,6 +10,7 @@
     "api.ShieldDisabledMixin",
     "api.ShieldEnchantabilityMixin",
     "gameplay.EnchantmentCategoryMixin",
+    "gameplay.NetheriteShieldSoundMixin",
     "gameplay.ShieldDelayMixin"
   ],
   "client": [

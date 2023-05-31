@@ -24,9 +24,7 @@ public class NetheriteShieldModel extends ShieldModel {
 
     public void renderTrim(PoseStack poseStack, MultiBufferSource bufferSource, int light, ArmorTrim trim, boolean hasFoil) {
         var atlas = Minecraft.getInstance().getModelManager().getAtlas(Sheets.ARMOR_TRIMS_SHEET);
-        var location = trimTexture(trim);
-        Guarding.LOGGER.info(location.toString());
-        VertexConsumer vertex = atlas.getSprite(location).wrap(ItemRenderer.getFoilBufferDirect(bufferSource, Sheets.armorTrimsSheet(), true, hasFoil));
+        VertexConsumer vertex = atlas.getSprite(trimTexture(trim)).wrap(ItemRenderer.getFoilBufferDirect(bufferSource, Sheets.armorTrimsSheet(), false, hasFoil));
         this.renderToBuffer(poseStack, vertex, light, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
     }
 

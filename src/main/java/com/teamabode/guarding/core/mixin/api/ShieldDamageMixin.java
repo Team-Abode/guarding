@@ -1,5 +1,7 @@
 package com.teamabode.guarding.core.mixin.api;
 
+import com.teamabode.guarding.core.init.GuardingItems;
+import com.teamabode.guarding.core.init.GuardingSounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
@@ -30,7 +32,7 @@ public abstract class ShieldDamageMixin extends LivingEntity {
 
     @Inject(method = "hurtCurrentlyUsedShield", at = @At("HEAD"), cancellable = true)
     private void damageNetheriteShield(float damageAmount, CallbackInfo ci) {
-        if (useItem.getItem() instanceof ShieldItem shieldItem) {
+        if (useItem.is(GuardingItems.NETHERITE_SHIELD)) {
             if (!level.isClientSide) this.awardStat(Stats.ITEM_USED.get(useItem.getItem()));
             if (damageAmount >= 3.0f) {
                 int shieldDamage = 1 + Mth.floor(damageAmount);
@@ -40,7 +42,7 @@ public abstract class ShieldDamageMixin extends LivingEntity {
                 if (useItem.isEmpty()) {
                     this.setItemSlot(interactionHand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND, ItemStack.EMPTY);
                     this.useItem = ItemStack.EMPTY;
-                    this.playSound(SoundEvents.SHIELD_BREAK, 0.8f, 0.8f + this.level.random.nextFloat() * 0.4f);
+                    this.playSound(GuardingSounds.ITEM_NETHERITE_SHIELD_BREAK, 0.8f, 0.8f + this.level.random.nextFloat() * 0.4f);
                 }
             }
             ci.cancel();

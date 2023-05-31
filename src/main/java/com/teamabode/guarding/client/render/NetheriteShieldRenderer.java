@@ -25,7 +25,7 @@ public class NetheriteShieldRenderer implements BuiltinItemRendererRegistry.Dyna
     public void render(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay) {
         poseStack.pushPose();
         poseStack.scale(1.0f, -1.0f, -1.0f);
-        VertexConsumer vertex = ItemRenderer.getFoilBufferDirect(bufferSource, model.renderType(NetheriteShieldModel.TEXTURE), true, stack.hasFoil());
+        VertexConsumer vertex = ItemRenderer.getFoilBufferDirect(bufferSource, model.renderType(NetheriteShieldModel.TEXTURE), false, stack.hasFoil());
         model.renderToBuffer(poseStack, vertex, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
         var level = Minecraft.getInstance().level;
         if (level != null) {
@@ -34,7 +34,6 @@ public class NetheriteShieldRenderer implements BuiltinItemRendererRegistry.Dyna
             });
         }
         poseStack.popPose();
-
     }
 
     public void onResourceManagerReload(ResourceManager manager) {

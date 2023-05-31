@@ -26,15 +26,12 @@ public class GuardingClient implements ClientModInitializer {
     public void onInitializeClient() {
         ParticleFactoryRegistry.getInstance().register(GuardingParticles.PARRY, ParryParticle.Provider::new);
         EntityModelLayerRegistry.registerModelLayer(NetheriteShieldModel.LAYER, NetheriteShieldModel::createLayer);
-
         renderNetheriteShield();
     }
 
     private static void renderNetheriteShield() {
         NetheriteShieldRenderer renderer = new NetheriteShieldRenderer();
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(renderer);
-        //ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(ShieldTrimManager.INSTANCE);
-
         BuiltinItemRendererRegistry.INSTANCE.register(GuardingItems.NETHERITE_SHIELD, renderer);
         ItemProperties.register(GuardingItems.NETHERITE_SHIELD, new ResourceLocation(Guarding.MOD_ID,"blocking"), GuardingClient::blockingPredicate);
     }

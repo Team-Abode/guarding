@@ -6,5 +6,38 @@
       "mob/zombie/metal3"
     ],
     "subtitle": "subtitle.guarding.item.shield.parry"
+  },
+  "item.netherite_shield.block": {
+    "sounds": [
+      "guarding:item/netherite_shield/block1",
+      "guarding:item/netherite_shield/block2",
+      "guarding:item/netherite_shield/block3",
+      "guarding:item/netherite_shield/block4",
+      "guarding:item/netherite_shield/block5"
+    ],
+    "subtitle": "subtitle.guarding.item.netherite_shield.block"
+  },
+  "item.netherite_shield.break": {
+    "sounds": [
+      "guarding:item/netherite_shield/break"
+    ],
+    "subtitle": "subtitle.guarding.item.netherite_shield.break"
+  },
+  "item.netherite_shield.parry": {
+    "sounds": [
+      "mob/zombie/metal1",
+      "mob/zombie/metal2",
+      "mob/zombie/metal3"
+    ],
+    "subtitle": "subtitle.guarding.item.netherite_shield.parry"
+  },
+  "item.netherite_shield.equip": {
+    "sounds": [
+      "guarding:item/netherite_shield/equip1",
+      "guarding:item/netherite_shield/equip2",
+      "guarding:item/netherite_shield/equip3",
+      "guarding:item/netherite_shield/equip4"
+    ],
+    "subtitle": "subtitle.guarding.item.netherite_shield.equip"
   }
 }
