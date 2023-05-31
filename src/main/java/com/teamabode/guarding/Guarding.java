@@ -5,11 +5,9 @@ import com.teamabode.guarding.core.init.*;
 import com.teamabode.scribe.core.api.config.Config;
 import com.teamabode.scribe.core.api.config.ConfigBuilder;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +31,6 @@ public class Guarding implements ModInitializer {
         GuardingSounds.init();
         GuardingParticles.init();
         GuardingEvents.init();
-
         DefaultResourceConditions.featuresEnabled();
         ResourceConditions.register(modPrefix("netherite_shield_enabled"), root -> CONFIG.getGroup("general").getBooleanProperty("netherite_shield_enabled"));
     }

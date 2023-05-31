@@ -9,12 +9,11 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.armortrim.ArmorTrim;
 
 public class NetheriteShieldRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer, SimpleSynchronousResourceReloadListener {
     private NetheriteShieldModel model;
@@ -28,7 +27,14 @@ public class NetheriteShieldRenderer implements BuiltinItemRendererRegistry.Dyna
         poseStack.scale(1.0f, -1.0f, -1.0f);
         VertexConsumer vertex = ItemRenderer.getFoilBufferDirect(bufferSource, model.renderType(NetheriteShieldModel.TEXTURE), true, stack.hasFoil());
         model.renderToBuffer(poseStack, vertex, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+        var level = Minecraft.getInstance().level;
+        if (level != null) {
+            ArmorTrim.getTrim(level.registryAccess(), stack).ifPresent(armorTrim -> {
+                model.renderTrim(poseStack, bufferSource, light, armorTrim, stack.hasFoil());
+            });
+        }
         poseStack.popPose();
+
     }
 
     public void onResourceManagerReload(ResourceManager manager) {
