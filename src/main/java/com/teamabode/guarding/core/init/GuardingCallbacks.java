@@ -52,8 +52,10 @@ public class GuardingCallbacks {
     // Logic for blocking a projectile
     private static void blockProjectile(Player user, Entity damageCauser, Projectile projectile, boolean isParry) {
         if (!isParry || damageCauser == null) return;
-        Vec3 motion = new Vec3(user.getX() - damageCauser.getX(), 0.0f, user.getZ() - damageCauser.getZ()).scale(0.75f);
-        projectile.setDeltaMovement(motion.x(), 2.0f, motion.z());
+        float projectileLaunchStrength = Guarding.CONFIG.getGroup("parry").getFloatProperty("projectile_launch_strength");
+
+        Vec3 motion = new Vec3(user.getX() - damageCauser.getX(), 0.0f, user.getZ() - damageCauser.getZ()).scale(projectileLaunchStrength);
+        projectile.setDeltaMovement(motion.x(), -1.5f, motion.z());
         projectile.hurtMarked = true;
     }
 

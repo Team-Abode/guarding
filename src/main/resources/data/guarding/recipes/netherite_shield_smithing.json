@@ -11,9 +11,6 @@
   },
   "fabric:load_conditions": [
     {
-      "condition": "guarding:netherite_shield_enabled"
-    },
-    {
       "condition": "fabric:not",
       "value": {
         "condition": "fabric:features_enabled",

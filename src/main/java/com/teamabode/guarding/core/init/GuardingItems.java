@@ -21,9 +21,7 @@ public class GuardingItems {
 
     public static void init() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(modifier -> {
-            if (Guarding.CONFIG.getGroup("general").getBooleanProperty("netherite_shield_enabled")) {
-                modifier.addAfter(Items.SHIELD, NETHERITE_SHIELD);
-            }
+            modifier.addAfter(Items.SHIELD, NETHERITE_SHIELD);
         });
     }
 }
