@@ -30,7 +30,7 @@ public class Guarding implements ModInitializer {
         GuardingEnchantments.init();
         GuardingSounds.init();
         GuardingParticles.init();
-        GuardingEvents.init();
+        GuardingCallbacks.init();
         DefaultResourceConditions.featuresEnabled();
         ResourceConditions.register(modPrefix("netherite_shield_enabled"), root -> CONFIG.getGroup("general").getBooleanProperty("netherite_shield_enabled"));
     }

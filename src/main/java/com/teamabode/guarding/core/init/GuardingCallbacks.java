@@ -1,6 +1,7 @@
 package com.teamabode.guarding.core.init;
 
 import com.teamabode.guarding.Guarding;
+import com.teamabode.guarding.core.api.GuardingEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -15,37 +16,48 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public class GuardingEvents {
+public class GuardingCallbacks {
 
     public static void init() {
-        com.teamabode.guarding.core.api.GuardingEvents.SHIELD_BLOCKED.register(GuardingEvents::onShieldBlock);
-        com.teamabode.guarding.core.api.GuardingEvents.SHIELD_DISABLED.register(GuardingEvents::onShieldDisabled);
+        GuardingEvents.SHIELD_BLOCKED.register(GuardingCallbacks::onShieldBlock);
+        GuardingEvents.SHIELD_DISABLED.register(GuardingCallbacks::onShieldDisabled);
     }
 
+    // Logic for blocking
     private static void onShieldBlock(Player user, DamageSource source, float amount) {
         Entity sourceEntity = source.getDirectEntity();
         boolean isParry = (user.getUseItem().getUseDuration() - user.getUseItemRemainingTicks()) <= 2;
-
-        if (sourceEntity instanceof LivingEntity attacker) {
-            if (isParry) {
-                float exhaustion = Guarding.CONFIG.getGroup("parry").getFloatProperty("exhaustion_cost");
-                float strength = getKnockbackStrength(user.getUseItem());
-
-                user.causeFoodExhaustion(exhaustion);
-                attacker.knockback(strength, user.getX() - attacker.getX(), user.getZ() - attacker.getZ());
-                attacker.hurtMarked = true;
-            }
-            handleBarbed(user, attacker, isParry);
-        }
-        if (sourceEntity instanceof Projectile projectile) {
-            projectile.discard();
-        }
-        if (isParry) parryEffects(user, sourceEntity);
+        if (sourceEntity instanceof LivingEntity attacker) blockLivingEntity(user, attacker, isParry);
+        if (sourceEntity instanceof Projectile projectile) blockProjectile(user, source.getEntity(), projectile, isParry);
+        tryParryEffects(user, sourceEntity, isParry);
     }
 
+    // Logic for blocking a living entity
+    private static void blockLivingEntity(Player user, LivingEntity attacker, boolean isParry) {
+        if (isParry) {
+            float exhaustion = Guarding.CONFIG.getGroup("parry").getFloatProperty("exhaustion_cost");
+            float strength = getKnockbackStrength(user.getUseItem());
+
+            user.causeFoodExhaustion(exhaustion);
+            attacker.knockback(strength, user.getX() - attacker.getX(), user.getZ() - attacker.getZ());
+            attacker.hurtMarked = true;
+        }
+        handleBarbed(user, attacker, isParry);
+    }
+
+    // Logic for blocking a projectile
+    private static void blockProjectile(Player user, Entity damageCauser, Projectile projectile, boolean isParry) {
+        if (isParry || damageCauser == null) return;
+        Vec3 motion = new Vec3(user.getX() - damageCauser.getX(), 1.0f, user.getZ() - damageCauser.getZ()).scale(0.5f);
+        projectile.setDeltaMovement(motion);
+        projectile.hurtMarked = true;
+    }
+
+    // Handles all code for the barbed enchantment
     private static void handleBarbed(Player user, LivingEntity attacker, boolean isParry) {
         RandomSource random = user.getRandom();
         float damage = Guarding.CONFIG.getGroup("barbed").getFloatProperty("damage_amount");
@@ -60,6 +72,7 @@ public class GuardingEvents {
         }
     }
 
+    // Determines the knockback strength on parry
     private static float getKnockbackStrength(ItemStack stack) {
         float baseStrength = Guarding.CONFIG.getGroup("parry").getFloatProperty("knockback_strength");
         float additionalStrength = Guarding.CONFIG.getGroup("pummeling").getFloatProperty("additional_knockback_strength_per_level");
@@ -69,7 +82,10 @@ public class GuardingEvents {
         return baseStrength + pummelStrength;
     }
 
-    private static void parryEffects(Player user, Entity sourceEntity) {
+    // Parry visual effects (Sound and particles)
+    private static void tryParryEffects(Player user, Entity sourceEntity, boolean isParry) {
+        if (!isParry) return;
+
         Level level = user.getLevel();
         SoundEvent breakSound = user.getUseItem().is(GuardingItems.NETHERITE_SHIELD) ? GuardingSounds.ITEM_NETHERITE_SHIELD_PARRY : GuardingSounds.ITEM_SHIELD_PARRY;
         level.playSound(null, user.blockPosition(), breakSound, SoundSource.PLAYERS);
@@ -79,6 +95,7 @@ public class GuardingEvents {
         }
     }
 
+    // Handles the code for the Retribution Enchantment
     private static void onShieldDisabled(Player user, LivingEntity attacker) {
         ItemStack useItem = user.getUseItem();
         int retributionLevel = EnchantmentHelper.getItemEnchantmentLevel(GuardingEnchantments.RETRIBUTION, useItem);
@@ -93,6 +110,7 @@ public class GuardingEvents {
         }
     }
 
+    // The condition for retribution to apply
     private static boolean isEnemy(Player user, LivingEntity other) {
         if (other == user) return false;
         if (other instanceof Player otherPlayer) return user.canHarmPlayer(otherPlayer);
