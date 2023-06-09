@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "addition": {
     "item": "minecraft:netherite_ingot"
   },
@@ -9,15 +9,7 @@
   "result": {
     "item": "guarding:netherite_shield"
   },
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:not",
-      "value": {
-        "condition": "fabric:features_enabled",
-        "features": [
-          "minecraft:update_1_20"
-        ]
-      }
-    }
-  ]
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
 }

@@ -5,8 +5,6 @@ import com.teamabode.guarding.core.init.*;
 import com.teamabode.scribe.core.api.config.Config;
 import com.teamabode.scribe.core.api.config.ConfigBuilder;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.slf4j.Logger;
@@ -33,7 +31,7 @@ public class Guarding implements ModInitializer {
         GuardingCallbacks.init();
     }
 
-    public static ResourceLocation modPrefix(String identifier) {
-        return new ResourceLocation(MOD_ID, identifier);
+    public static ResourceLocation id(String name) {
+        return new ResourceLocation(MOD_ID, name);
     }
 }

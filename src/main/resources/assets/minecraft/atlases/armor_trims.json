@@ -13,7 +13,12 @@
         "trims/shield/tide",
         "trims/shield/snout",
         "trims/shield/rib",
-        "trims/shield/spire"
+        "trims/shield/spire",
+        "trims/shield/wayfinder",
+        "trims/shield/shaper",
+        "trims/shield/silence",
+        "trims/shield/raiser",
+        "trims/shield/host"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {

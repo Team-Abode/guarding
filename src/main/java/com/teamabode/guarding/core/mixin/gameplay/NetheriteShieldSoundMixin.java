@@ -21,7 +21,7 @@ public abstract class NetheriteShieldSoundMixin {
     private void playBlockSound(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (this.getUseItem().is(GuardingItems.NETHERITE_SHIELD)) {
             LivingEntity livingEntity = LivingEntity.class.cast(this);
-            livingEntity.getLevel().playSound(null, livingEntity.blockPosition(), GuardingSounds.ITEM_NETHERITE_SHIELD_BLOCK, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            livingEntity.level().playSound(null, livingEntity.blockPosition(), GuardingSounds.ITEM_NETHERITE_SHIELD_BLOCK, SoundSource.NEUTRAL, 1.0f, 1.0f);
             cir.cancel();
         }
     }

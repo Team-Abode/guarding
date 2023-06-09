@@ -6,7 +6,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "api.ShieldBlockedMixin",
-    "api.ShieldDamageMixin",
+    "api.NetheriteShieldMixin",
     "api.ShieldDisabledMixin",
     "api.ShieldEnchantabilityMixin",
     "gameplay.EnchantmentCategoryMixin",

@@ -88,7 +88,7 @@ public class GuardingCallbacks {
     private static void tryParryEffects(Player user, Entity sourceEntity, boolean isParry) {
         if (!isParry) return;
 
-        Level level = user.getLevel();
+        Level level = user.level();
         SoundEvent breakSound = user.getUseItem().is(GuardingItems.NETHERITE_SHIELD) ? GuardingSounds.ITEM_NETHERITE_SHIELD_PARRY : GuardingSounds.ITEM_SHIELD_PARRY;
         level.playSound(null, user.blockPosition(), breakSound, SoundSource.PLAYERS);
 
@@ -104,7 +104,7 @@ public class GuardingCallbacks {
         int amplifier = Guarding.CONFIG.getGroup("retribution").getIntProperty("slowness_amplifier");
 
         if (retributionLevel > 0) {
-            List<LivingEntity> list = attacker.getLevel().getEntitiesOfClass(LivingEntity.class, user.getBoundingBox().inflate(3.0d, 0.0d, 3.0d), livingEntity -> isEnemy(user, livingEntity));
+            List<LivingEntity> list = attacker.level().getEntitiesOfClass(LivingEntity.class, user.getBoundingBox().inflate(3.0d, 0.0d, 3.0d), livingEntity -> isEnemy(user, livingEntity));
 
             for (LivingEntity livingEntity : list) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, retributionLevel * 50, amplifier, true, true));

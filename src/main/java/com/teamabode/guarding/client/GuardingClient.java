@@ -7,16 +7,12 @@ import com.teamabode.guarding.client.render.NetheriteShieldRenderer;
 import com.teamabode.guarding.core.init.GuardingItems;
 import com.teamabode.guarding.core.init.GuardingParticles;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,8 +27,8 @@ public class GuardingClient implements ClientModInitializer {
 
     private static void netheriteShield() {
         NetheriteShieldRenderer renderer = new NetheriteShieldRenderer();
-        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(renderer);
         BuiltinItemRendererRegistry.INSTANCE.register(GuardingItems.NETHERITE_SHIELD, renderer);
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(renderer);
         ItemProperties.register(GuardingItems.NETHERITE_SHIELD, new ResourceLocation(Guarding.MOD_ID,"blocking"), GuardingClient::blockingPredicate);
     }
 
