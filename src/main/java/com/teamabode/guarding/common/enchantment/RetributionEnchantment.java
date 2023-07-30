@@ -1,7 +1,6 @@
 package com.teamabode.guarding.common.enchantment;
 
 import com.teamabode.guarding.Guarding;
-import com.teamabode.guarding.core.init.GuardingConfig;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 public class RetributionEnchantment extends GuardingEnchantment {
