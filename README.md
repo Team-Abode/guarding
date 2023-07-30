@@ -1,9 +1,2 @@
-# Fabric Example Mod
-
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## Guarding
+A small mod for Fabric that adds new features to Shields! From new mechanics to unique enchantments, this expansion fleshes out the Shield in a way that still feels Minecraft-y!
