@@ -35,11 +35,13 @@ public class Guarding implements ModInitializer {
                 builder.addFloatProperty("additional_knockback_strength_per_level", 0.15f);
                 return builder;
             })
+            /*
             .addGroup("retribution", builder -> {
                 builder.addIntProperty("slowness_amplifier", 1);
                 builder.addBooleanProperty("is_treasure", true);
                 return builder;
             })
+            */
             .build();
 
     public void onInitialize() {

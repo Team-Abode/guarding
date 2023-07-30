@@ -24,7 +24,7 @@ public class GuardingCallbacks {
 
     public static void init() {
         GuardingEvents.SHIELD_BLOCKED.register(GuardingCallbacks::onShieldBlock);
-        GuardingEvents.SHIELD_DISABLED.register(GuardingCallbacks::onShieldDisabled);
+        //GuardingEvents.SHIELD_DISABLED.register(GuardingCallbacks::onShieldDisabled);
     }
 
     // Logic for blocking
@@ -99,6 +99,7 @@ public class GuardingCallbacks {
 
     // Handles the code for the Retribution Enchantment
     private static void onShieldDisabled(Player user, LivingEntity attacker) {
+        /*
         ItemStack useItem = user.getUseItem();
         int retributionLevel = EnchantmentHelper.getItemEnchantmentLevel(GuardingEnchantments.RETRIBUTION, useItem);
         int amplifier = Guarding.CONFIG.getGroup("retribution").getIntProperty("slowness_amplifier");
@@ -110,6 +111,7 @@ public class GuardingCallbacks {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, retributionLevel * 50, amplifier, true, true));
             }
         }
+        */
     }
 
     // The condition for retribution to apply

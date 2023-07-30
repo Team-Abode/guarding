@@ -12,7 +12,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 public class GuardingEnchantments {
     public static final Enchantment BARBED = register("barbed", new BarbedEnchantment());
     public static final Enchantment PUMMELING = register("pummeling", new PummelingEnchantment());
-    public static final Enchantment RETRIBUTION = register("retribution", new RetributionEnchantment());
 
     private static <E extends Enchantment> E register(String name, E enchantment) {
         return Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(Guarding.MOD_ID, name), enchantment);

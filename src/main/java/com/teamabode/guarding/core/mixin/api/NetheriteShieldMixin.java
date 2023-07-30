@@ -64,24 +64,4 @@ public abstract class NetheriteShieldMixin extends LivingEntity {
             this.level().broadcastEntityEvent(this, (byte)30);
         }
     }
-
-    @Shadow
-    public Iterable<ItemStack> getArmorSlots() {
-        return null;
-    }
-
-    @Shadow
-    public ItemStack getItemBySlot(EquipmentSlot slot) {
-        return null;
-    }
-
-    @Shadow
-    public void setItemSlot(EquipmentSlot slot, ItemStack stack) {
-
-    }
-
-    @Shadow
-    public HumanoidArm getMainArm() {
-        return null;
-    }
 }

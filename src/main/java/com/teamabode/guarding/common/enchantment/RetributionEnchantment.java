@@ -22,7 +22,8 @@ public class RetributionEnchantment extends GuardingEnchantment {
     }
 
     public boolean isTreasureOnly() {
-        return Guarding.CONFIG.getGroup("retribution").getBooleanProperty("is_treasure");
+        return false;
+        //return Guarding.CONFIG.getGroup("retribution").getBooleanProperty("is_treasure");
     }
 
     protected boolean checkCompatibility(Enchantment other) {
