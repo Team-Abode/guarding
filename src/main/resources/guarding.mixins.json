@@ -5,13 +5,14 @@
   "package": "com.teamabode.guarding.core.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "api.ShieldBlockedMixin",
     "api.NetheriteShieldMixin",
+    "api.ShieldBlockedMixin",
     "api.ShieldDisabledMixin",
     "api.ShieldEnchantabilityMixin",
     "gameplay.EnchantmentCategoryMixin",
     "gameplay.NetheriteShieldSoundMixin",
-    "gameplay.ShieldDelayMixin"
+    "gameplay.ShieldDelayMixin",
+    "gameplay.SmithingIconMixin"
   ],
   "client": [
   ],
