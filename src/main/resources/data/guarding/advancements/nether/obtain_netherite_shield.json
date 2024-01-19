@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "guarding:netherite_shield",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.guarding.nether.obtain_netherite_shield.title"
+    },
+    "description": {
+      "translate": "advancements.guarding.nether.obtain_netherite_shield.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "minecraft:nether/netherite_armor",
+  "criteria": {
+    "netherite_shield": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "guarding:netherite_shield"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "netherite_shield"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

@@ -1,14 +1,13 @@
 package com.teamabode.guarding.core.init;
 
 import com.teamabode.guarding.Guarding;
+import com.teamabode.guarding.core.access.ProjectileAccessor;
 import com.teamabode.guarding.core.api.GuardingEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -17,8 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.List;
 
 public class GuardingCallbacks {
 
@@ -30,7 +27,7 @@ public class GuardingCallbacks {
     // Logic for blocking
     private static void onShieldBlock(Player user, DamageSource source, float amount) {
         Entity sourceEntity = source.getDirectEntity();
-        boolean isParry = (user.getUseItem().getUseDuration() - user.getUseItemRemainingTicks()) <= 2;
+        boolean isParry = (user.getUseItem().getUseDuration() - user.getUseItemRemainingTicks()) <= 3;
         if (sourceEntity instanceof LivingEntity attacker) blockLivingEntity(user, attacker, isParry);
         if (sourceEntity instanceof Projectile projectile) blockProjectile(user, source.getEntity(), projectile, isParry);
         tryParryEffects(user, sourceEntity, isParry);
@@ -53,7 +50,7 @@ public class GuardingCallbacks {
     private static void blockProjectile(Player user, Entity damageCauser, Projectile projectile, boolean isParry) {
         if (!isParry || damageCauser == null) return;
         float projectileLaunchStrength = Guarding.CONFIG.getGroup("parry").getFloatProperty("projectile_launch_strength");
-
+        if (projectile instanceof ProjectileAccessor accessor) accessor.setParrier(user);
         Vec3 motion = new Vec3(user.getX() - damageCauser.getX(), 0.0f, user.getZ() - damageCauser.getZ()).scale(projectileLaunchStrength);
         projectile.setDeltaMovement(motion.x(), -1.5f, motion.z());
         projectile.hurtMarked = true;

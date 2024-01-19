@@ -9,8 +9,11 @@
     "api.ShieldBlockedMixin",
     "api.ShieldDisabledMixin",
     "api.ShieldEnchantabilityMixin",
+    "gameplay.BannerRefundMixin",
     "gameplay.EnchantmentCategoryMixin",
+    "gameplay.KilledByParriedArrowTriggerMixin",
     "gameplay.NetheriteShieldSoundMixin",
+    "gameplay.ProjectileMixin",
     "gameplay.ShieldDelayMixin",
     "gameplay.SmithingIconMixin"
   ],

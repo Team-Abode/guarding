@@ -45,6 +45,7 @@ public class NetheriteShieldRenderer implements BuiltinItemRendererRegistry.Dyna
     }
 
     public void onResourceManagerReload(ResourceManager manager) {
-        this.model = new NetheriteShieldModel(Minecraft.getInstance().getEntityModels().bakeLayer(NetheriteShieldModel.LAYER), Minecraft.getInstance().getModelManager().getAtlas(Sheets.ARMOR_TRIMS_SHEET));
+        Minecraft instance = Minecraft.getInstance();
+        this.model = new NetheriteShieldModel(instance.getEntityModels().bakeLayer(NetheriteShieldModel.LAYER), instance.getModelManager().getAtlas(Sheets.ARMOR_TRIMS_SHEET));
     }
 }

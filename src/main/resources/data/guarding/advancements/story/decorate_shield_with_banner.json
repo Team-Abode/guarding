@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:shield",
+      "nbt": "{BlockEntityTag:{Base:10,Patterns:[{Pattern:\"sc\",Color:4}]}}"
+    },
+    "title": {
+      "translate": "advancements.guarding.story.decorate_shield_with_banner.title"
+    },
+    "description": {
+      "translate": "advancements.guarding.story.decorate_shield_with_banner.desc"
+    }
+  },
+  "parent": "minecraft:story/deflect_arrow",
+  "criteria": {
+    "decorate_shield": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "minecraft:shield_decoration"
+      }
+    }
+  },
+  "requirements": [
+    ["decorate_shield"]
+  ]
+}

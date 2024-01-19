@@ -1,0 +1,51 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:shield",
+            "nbt": "{Damage: 0}"
+        },
+        "title": {
+            "translate": "advancements.guarding.story.kill_mob_with_own_arrow.title"
+        },
+        "description": {
+            "translate": "advancements.guarding.story.kill_mob_with_own_arrow.desc"
+        },
+        "hidden": true,
+        "frame": "challenge"
+    },
+    "parent": "guarding:story/decorate_shield_with_banner",
+    "criteria": {
+        "skeleton": {
+            "trigger": "guarding:killed_by_parried_arrow",
+            "conditions": {
+                "victim": [
+                    {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                            "type": "minecraft:skeleton"
+                        }
+                    }
+                ]
+            }
+        },
+        "pillager": {
+            "trigger": "guarding:killed_by_parried_arrow",
+            "conditions": {
+                "victim": [
+                    {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                            "type": "minecraft:pillager"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [["skeleton", "pillager"]],
+    "rewards": {
+        "experience": 100
+    }
+}
