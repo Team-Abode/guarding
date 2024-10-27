@@ -5,6 +5,7 @@ import com.teamabode.guarding.core.util.ShieldUtils;
 import com.teamabode.sketch.core.api.config.ConfigManager;
 import com.teamabode.sketch.core.api.event.ShieldEvents;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,5 +30,9 @@ public class Guarding implements ModInitializer {
 
     public static ResourceLocation id(String name) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+    }
+
+    public static boolean checkMod(String modId) {
+        return FabricLoader.getInstance().isModLoaded(modId);
     }
 }
