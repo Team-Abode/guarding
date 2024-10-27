@@ -17,12 +17,11 @@ public abstract class NetheriteShieldSoundMixin {
 
     @Shadow public abstract ItemStack getUseItem();
 
-    @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V", shift = At.Shift.BEFORE), cancellable = true)
+    @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V"))
     private void guarding$hurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (this.getUseItem().is(GuardingItems.NETHERITE_SHIELD)) {
             LivingEntity livingEntity = LivingEntity.class.cast(this);
             livingEntity.level().playSound(null, livingEntity.blockPosition(), GuardingSounds.ITEM_NETHERITE_SHIELD_BLOCK, SoundSource.NEUTRAL, 1.0f, 1.0f);
-            cir.cancel();
         }
     }
 }
