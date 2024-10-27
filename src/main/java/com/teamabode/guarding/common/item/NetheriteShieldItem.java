@@ -2,27 +2,27 @@ package com.teamabode.guarding.common.item;
 
 import com.teamabode.guarding.GuardingConfig;
 import com.teamabode.guarding.core.registry.GuardingSounds;
-import net.minecraft.core.Holder;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShieldItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.sound.SoundEvent;
 
 public class NetheriteShieldItem extends ShieldItem {
 
-    public NetheriteShieldItem(Properties properties) {
+    public NetheriteShieldItem(net.minecraft.item.Item.Settings properties) {
         super(properties);
     }
 
-    public int getEnchantmentValue() {
+    public int getEnchantability() {
         return GuardingConfig.INSTANCE.netheriteShieldEnchantibility.get();
     }
 
-    public Holder<SoundEvent> getEquipSound() {
+    public RegistryEntry<SoundEvent> getEquipSound() {
         return GuardingSounds.ITEM_NETHERITE_SHIELD_EQUIP;
     }
 
-    public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
-        return repairCandidate.is(Items.NETHERITE_INGOT);
+    public boolean canRepair(ItemStack stack, ItemStack repairCandidate) {
+        return repairCandidate.isOf(Items.NETHERITE_INGOT);
     }
 }

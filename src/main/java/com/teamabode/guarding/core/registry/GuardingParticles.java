@@ -2,17 +2,16 @@ package com.teamabode.guarding.core.registry;
 
 import com.teamabode.guarding.Guarding;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.core.Registry;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 public class GuardingParticles {
 
     public static final SimpleParticleType PARRY = register("parry");
 
     private static SimpleParticleType register(String name) {
-        return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Guarding.id(name), FabricParticleTypes.simple(true));
+        return Registry.register(Registries.PARTICLE_TYPE, Guarding.id(name), FabricParticleTypes.simple(true));
     }
 
     public static void init() {

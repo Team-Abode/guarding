@@ -1,7 +1,6 @@
 package com.teamabode.guarding.core.mixin;
 
 import com.teamabode.guarding.Guarding;
-import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -13,7 +12,7 @@ public class GuardingMixinPlugin implements IMixinConfigPlugin {
 
     public boolean shouldApplyMixin(String target, String mixin) {
         // Compatibility with Fabric Shield Lib
-        if (Guarding.checkMod("fabricshieldlib") && mixin.contains("ShieldEnchantabilityMixin")) {
+        if (Guarding.isModLoaded("fabricshieldlib") && mixin.contains("ShieldEnchantabilityMixin")) {
             return false;
         }
         return true;

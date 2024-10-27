@@ -6,7 +6,7 @@ import com.teamabode.sketch.core.api.config.ConfigManager;
 import com.teamabode.sketch.core.api.event.ShieldEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +16,10 @@ public class Guarding implements ModInitializer {
 
     public void onInitialize() {
         GuardingItems.init();
-        GuardingEnchantmentEffects.init();
+        GuardingEnchantmentEffectComponentTypes.init();
         GuardingSounds.init();
         GuardingParticles.init();
-        GuardingCritieriaTriggers.init();
+        GuardingCriterions.init();
         GuardingRecipeSerializers.init();
         GuardingStats.init();
 
@@ -28,11 +28,11 @@ public class Guarding implements ModInitializer {
         ConfigManager.INSTANCE.register(GuardingConfig.INSTANCE);
     }
 
-    public static ResourceLocation id(String name) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+    public static Identifier id(String name) {
+        return Identifier.of(MOD_ID, name);
     }
 
-    public static boolean checkMod(String modId) {
+    public static boolean isModLoaded(String modId) {
         return FabricLoader.getInstance().isModLoaded(modId);
     }
 }

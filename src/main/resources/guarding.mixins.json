@@ -5,13 +5,13 @@
     "package": "com.teamabode.guarding.core.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "KilledByParriedArrowTriggerMixin",
+        "TriggerKilledByParriedArrowCriterionMixin",
         "NetheriteShieldMixin",
         "NetheriteShieldSoundMixin",
         "ProjectileMixin",
         "ShieldDelayMixin",
         "ShieldItemMixin",
-        "SmithingMenuMixin",
+        "SmithingScreenHandlerMixin",
         "SmithingTemplateItemMixin"
     ],
     "client": [],

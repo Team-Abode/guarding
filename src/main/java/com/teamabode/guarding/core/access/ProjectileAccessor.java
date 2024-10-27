@@ -1,6 +1,6 @@
 package com.teamabode.guarding.core.access;
 
-import net.minecraft.world.entity.Entity;
+import net.minecraft.entity.Entity;
 
 public interface ProjectileAccessor {
 
