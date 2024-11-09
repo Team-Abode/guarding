@@ -1,0 +1,20 @@
+{
+  "item.guarding.netherite_shield": "네더라이트 방패",
+  "item.modifiers.shielding": "When Shielding:",
+  "item.modifiers.netherite_shield": "+2 Knockback Resistance",
+  "enchantment.guarding.barbed": "방패 가시",
+  "enchantment.guarding.pummeling": "떨치기",
+  "enchantment.guarding.retribution": "Retribution",
+  "subtitle.guarding.item.shield.parry": "Shield parries",
+  "subtitle.guarding.item.netherite_shield.block": "Shield blocks",
+  "subtitle.guarding.item.netherite_shield.break": "Shield breaks",
+  "subtitle.guarding.item.netherite_shield.parry": "Shield parries",
+  "subtitle.guarding.item.netherite_shield.equip": "Gear equips",
+
+  "advancements.guarding.story.decorate_shield_with_banner.title": "방패를 스타일과 함깨!",
+  "advancements.guarding.story.decorate_shield_with_banner.desc": "현수막으로 방패를 꾸미세요.",
+  "advancements.guarding.story.kill_mob_with_own_arrow.title": "너 당황했네!",
+  "advancements.guarding.story.kill_mob_with_own_arrow.desc": "스켈레톤이나 약탈자의 화살을 막아서 그들을 죽이세요.",
+  "advancements.guarding.nether.obtain_netherite_shield.title": "경계 태세!",
+  "advancements.guarding.nether.obtain_netherite_shield.desc": "네더라이트 주괴를 이용하여 방패를 업그레이드하세요."
+}
