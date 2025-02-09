@@ -1,0 +1,24 @@
+{
+  "advancements.guarding.nether.on_guard": "Начеку!",
+  "advancements.guarding.nether.on_guard.desc": "Используйте незеритовый слиток, чтобы улучшить щит.",
+  "advancements.guarding.story.parry_this_you_casual": "Парируй это, казуал!",
+  "advancements.guarding.story.parry_this_you_casual.desc": "Убейте врага, парируя его собственную стрелу",
+  "advancements.guarding.story.symbolic_shield": "Символический щит",
+  "advancements.guarding.story.symbolic_shield.desc": "Украсьте щит баннером",
+
+  "enchantment.guarding.barbed": "Колючка",
+  "enchantment.guarding.barbed.desc": "Наносит урон атакующим вас врагам при блокировании.",
+  "enchantment.guarding.pummeling": "Колотун",
+  "enchantment.guarding.pummeling.desc": "Увеличивает силу отдачи при парировании.",
+
+  "item.guarding.netherite_shield": "Незеритовый щит",
+
+  "stat.guarding.attacks_blocked_by_shield": "Атак, заблокированных щитом",
+  "stat.guarding.attacks_parried_by_shield": "Атак, парированных щитом",
+
+  "subtitle.guarding.item.shield.parry": "Щит парирует",
+  "subtitle.guarding.item.netherite_shield.block": "Удар по щиту",
+  "subtitle.guarding.item.netherite_shield.break": "Щит ломается",
+  "subtitle.guarding.item.netherite_shield.parry": "Щит парирует",
+  "subtitle.guarding.item.netherite_shield.equip": "Экипировка надета"
+}
