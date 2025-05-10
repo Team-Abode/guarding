@@ -1,16 +1,16 @@
 package com.teamabode.guarding.core.mixin;
 
-import net.minecraft.block.BannerBlock;
-import net.minecraft.block.Block;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ForgingScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.SmithingScreenHandler;
-import net.minecraft.util.DyeColor;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.ItemCombinerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.SmithingMenu;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BannerBlock;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,28 +20,28 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * This mixin is used to refund banners
  */
-@Mixin(SmithingScreenHandler.class)
-public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
+@Mixin(SmithingMenu.class)
+public abstract class SmithingScreenHandlerMixin extends ItemCombinerMenu {
 
-    public SmithingScreenHandlerMixin(@Nullable ScreenHandlerType<?> menuType, int i, PlayerInventory inventory, ScreenHandlerContext containerLevelAccess) {
+    public SmithingScreenHandlerMixin(@Nullable MenuType<?> menuType, int i, Inventory inventory, ContainerLevelAccess containerLevelAccess) {
         super(menuType, i, inventory, containerLevelAccess);
     }
 
-    @Inject(method = "onTakeOutput", at = @At("HEAD"))
-    private void guarding$onTakeOutput(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
-        ItemStack baseStack = input.getStack(1);
-        if (!baseStack.contains(DataComponentTypes.BASE_COLOR)) {
+    @Inject(method = "onTake", at = @At("HEAD"))
+    private void guarding$onTake(Player player, ItemStack stack, CallbackInfo ci) {
+        ItemStack baseStack = inputSlots.getItem(1);
+        if (!baseStack.has(DataComponents.BASE_COLOR)) {
             return;
         }
-        int colorID = baseStack.get(DataComponentTypes.BASE_COLOR).getId();
-        Block banner = BannerBlock.getForColor(DyeColor.byId(colorID));
+        int colorID = baseStack.get(DataComponents.BASE_COLOR).getId();
+        Block banner = BannerBlock.byColor(DyeColor.byId(colorID));
         ItemStack bannerStack = new ItemStack(banner);
 
-        if (baseStack.contains(DataComponentTypes.BANNER_PATTERNS)) {
-            bannerStack.set(DataComponentTypes.BANNER_PATTERNS, baseStack.get(DataComponentTypes.BANNER_PATTERNS));
+        if (baseStack.has(DataComponents.BANNER_PATTERNS)) {
+            bannerStack.set(DataComponents.BANNER_PATTERNS, baseStack.get(DataComponents.BANNER_PATTERNS));
         }
-        if (!player.giveItemStack(bannerStack)) {
-            player.dropStack(bannerStack);
+        if (!player.addItem(bannerStack)) {
+            player.spawnAtLocation(bannerStack);
         }
     }
 }

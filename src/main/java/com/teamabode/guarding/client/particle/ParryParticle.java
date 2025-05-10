@@ -1,54 +1,54 @@
 package com.teamabode.guarding.client.particle;
 
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
-public class ParryParticle extends SpriteBillboardParticle {
-    private final Random random;
-    private final SpriteProvider sprites;
+public class ParryParticle extends TextureSheetParticle {
+    private final RandomSource random;
+    private final SpriteSet sprites;
 
-    public ParryParticle(ClientWorld clientLevel, double x, double y, double z, SpriteProvider sprites) {
+    public ParryParticle(ClientLevel clientLevel, double x, double y, double z, SpriteSet sprites) {
         super(clientLevel, x, y, z, 0.0f, 0.0f, 0.0f);
-        this.random = Random.create();
+        this.random = RandomSource.create();
         this.sprites = sprites;
-        this.maxAge = 6;
-        this.scale = 1.0f;
+        this.lifetime = 6;
+        this.quadSize = 1.0f;
         float tint = this.random.nextFloat() * 0.6f + 0.4f;
-        this.red = tint;
-        this.green = tint;
-        this.blue = tint;
-        this.setSpriteForAge(sprites);
+        this.rCol = tint;
+        this.gCol = tint;
+        this.bCol = tint;
+        this.setSpriteFromAge(sprites);
     }
 
-    public int getBrightness(float partialTick) {
+    public int getLightColor(float partialTick) {
         return 15728880;
     }
 
     public void tick() {
-        this.prevPosX = this.x;
-        this.prevPosY = this.y;
-        this.prevPosZ = this.z;
-        if (this.age++ >= this.maxAge) {
-            this.markDead();
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
+        if (this.age++ >= this.lifetime) {
+            this.remove();
         } else {
-            this.setSpriteForAge(this.sprites);
+            this.setSpriteFromAge(this.sprites);
         }
     }
 
-    public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_LIT;
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
-    public static class Provider implements ParticleFactory<SimpleParticleType> {
-        private final SpriteProvider sprites;
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprites;
 
-        public Provider(SpriteProvider sprites) {
+        public Provider(SpriteSet sprites) {
             this.sprites = sprites;
         }
 
-        public Particle createParticle(SimpleParticleType type, ClientWorld level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new ParryParticle(level, x, y, z, sprites);
         }
     }

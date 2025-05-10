@@ -1,46 +1,46 @@
 package com.teamabode.guarding.client.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabode.guarding.Guarding;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.ShieldEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.model.ShieldModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.armortrim.ArmorTrim;
 
-public class NetheriteShieldModel extends ShieldEntityModel {
-    public static final EntityModelLayer LAYER = new EntityModelLayer(Guarding.id("netherite_shield"), "main");
-    public static final Identifier TEXTURE = Guarding.id("textures/entity/netherite_shield.png");
+public class NetheriteShieldModel extends ShieldModel {
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(Guarding.id("netherite_shield"), "main");
+    public static final ResourceLocation TEXTURE = Guarding.id("textures/entity/netherite_shield.png");
 
-    private final SpriteAtlasTexture atlas;
+    private final TextureAtlas atlas;
 
-    public NetheriteShieldModel(ModelPart modelPart, SpriteAtlasTexture atlas) {
+    public NetheriteShieldModel(ModelPart modelPart, TextureAtlas atlas) {
         super(modelPart);
         this.atlas = atlas;
     }
 
-    public void renderTrim(MatrixStack poseStack, VertexConsumerProvider bufferSource, int light, ArmorTrim trim) {
-        Sprite sprite = atlas.getSprite(trimTexture(trim));
+    public void renderTrim(PoseStack poseStack, MultiBufferSource bufferSource, int light, ArmorTrim trim) {
+        TextureAtlasSprite sprite = atlas.getSprite(trimTexture(trim));
 
-        VertexConsumer vertex = sprite.getTextureSpecificVertexConsumer(bufferSource.getBuffer(RenderLayer.getEntityCutout(TexturedRenderLayers.ARMOR_TRIMS_ATLAS_TEXTURE)));
-        this.render(poseStack, vertex, light, OverlayTexture.DEFAULT_UV);
+        VertexConsumer vertex = sprite.wrap(bufferSource.getBuffer(RenderType.entityCutout(Sheets.ARMOR_TRIMS_SHEET)));
+        this.renderToBuffer(poseStack, vertex, light, OverlayTexture.NO_OVERLAY);
     }
 
-    public void renderGlint(MatrixStack poseStack, VertexConsumerProvider bufferSource, int light) {
-        this.render(poseStack, ItemRenderer.getItemGlintConsumer(bufferSource, RenderLayer.getArmorEntityGlint(), false, true), light, OverlayTexture.DEFAULT_UV);
+    public void renderGlint(PoseStack poseStack, MultiBufferSource bufferSource, int light) {
+        this.renderToBuffer(poseStack, ItemRenderer.getFoilBuffer(bufferSource, RenderType.armorEntityGlint(), false, true), light, OverlayTexture.NO_OVERLAY);
     }
 
-    private static Identifier trimTexture(ArmorTrim trim) {
-        Identifier patternLocation = trim.getPattern().value().assetId();
-        String material = trim.getMaterial().value().assetName();
+    private static ResourceLocation trimTexture(ArmorTrim trim) {
+        ResourceLocation patternLocation = trim.pattern().value().assetId();
+        String material = trim.material().value().assetName();
         String colorMaterial = material.equals("netherite") ? "netherite_darker" : material;
         return patternLocation.withPath(path -> "trims/shield/" + path + "_" + colorMaterial);
     }

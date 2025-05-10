@@ -3,45 +3,45 @@ package com.teamabode.guarding.common.critieria;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
-import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.entity.Entity;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.entity.LootContextPredicate;
-import net.minecraft.predicate.entity.LootContextPredicateValidator;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.CriterionValidator;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.storage.loot.LootContext;
 
-public class KilledByParriedArrowCriterion extends AbstractCriterion<KilledByParriedArrowCriterion.TriggerInstance> {
+public class KilledByParriedArrowCriterion extends SimpleCriterionTrigger<KilledByParriedArrowCriterion.TriggerInstance> {
 
-    public void trigger(ServerPlayerEntity player, Entity victim) {
-        LootContext context = EntityPredicate.createAdvancementEntityLootContext(player, victim);
+    public void trigger(ServerPlayer player, Entity victim) {
+        LootContext context = EntityPredicate.createContext(player, victim);
         this.trigger(player, triggerInstance -> triggerInstance.matches(context));
     }
 
     @Override
-    public Codec<TriggerInstance> getConditionsCodec() {
+    public Codec<TriggerInstance> codec() {
         return KilledByParriedArrowCriterion.TriggerInstance.CODEC;
     }
 
-    public record TriggerInstance(Optional<LootContextPredicate> player, Optional<LootContextPredicate> victim) implements AbstractCriterion.Conditions {
+    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ContextAwarePredicate> victim) implements SimpleCriterionTrigger.SimpleInstance {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-                EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("victim").forGetter(TriggerInstance::victim)
+                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("victim").forGetter(TriggerInstance::victim)
         ).apply(instance, TriggerInstance::new));
 
-        public TriggerInstance(Optional<LootContextPredicate> player, Optional<LootContextPredicate> victim) {
+        public TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ContextAwarePredicate> victim) {
             this.player = player;
             this.victim = victim;
         }
 
         public boolean matches(LootContext context) {
-            return this.victim.isEmpty() || this.victim.get().test(context);
+            return this.victim.isEmpty() || this.victim.get().matches(context);
         }
 
         @Override
-        public void validate(LootContextPredicateValidator criterionValidator) {
-            criterionValidator.validateEntityPredicate(this.player, ".player");
-            criterionValidator.validateEntityPredicate(this.victim, ".victim");
+        public void validate(CriterionValidator criterionValidator) {
+            criterionValidator.validateEntity(this.player, ".player");
+            criterionValidator.validateEntity(this.victim, ".victim");
         }
     }
 }

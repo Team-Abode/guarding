@@ -1,9 +1,9 @@
 package com.teamabode.guarding.common.enchantment;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 @FunctionalInterface
 public interface EnchantmentConsumer {
-    void accept(RegistryEntry<Enchantment> holder, int level);
+    void accept(Holder<Enchantment> holder, int level);
 }
