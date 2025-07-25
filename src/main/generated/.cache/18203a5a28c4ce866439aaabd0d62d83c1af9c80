@@ -1,5 +1,5 @@
-// 1.21.1	2025-05-10T17:16:58.83092	Guarding/Tags for minecraft:item
-de3c2592e324c222e3837ca75443bf5c42169e42 data\minecraft\tags\item\enchantable\durability.json
+// 1.21.1	2024-10-27T13:01:55.2305847	Guarding/Tags for minecraft:item
 de3c2592e324c222e3837ca75443bf5c42169e42 data\c\tags\item\tools\shield.json
-de3c2592e324c222e3837ca75443bf5c42169e42 data\minecraft\tags\item\trimmable_armor.json
 2bcf0095e15e46fd0f6db6b9c4264c1169924451 data\guarding\tags\item\enchantable\shield.json
+de3c2592e324c222e3837ca75443bf5c42169e42 data\minecraft\tags\item\enchantable\durability.json
+de3c2592e324c222e3837ca75443bf5c42169e42 data\minecraft\tags\item\trimmable_armor.json
