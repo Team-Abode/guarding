@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-27T13:01:55.2275836	Guarding/Advancements
-c02f1391ae47d7daa386edd6e2dbd41159b81914 data\guarding\advancement\story\symbolic_shield.json
-dcb1bb929a15a25de2cd7429b7365f4a0b486a9d data\guarding\advancement\story\parry_this_you_casual.json
-f2491848a40cdd4e61bdf82b5377a1693a66656a data\guarding\advancement\nether\on_guard.json
+// 1.21.7	-999999999-01-01T00:00:00	Guarding/Advancements
+f2491848a40cdd4e61bdf82b5377a1693a66656a data/guarding/advancement/nether/on_guard.json
+dcb1bb929a15a25de2cd7429b7365f4a0b486a9d data/guarding/advancement/story/parry_this_you_casual.json
+6c2b4b05154b656a7915159dd77b94bb8476be96 data/guarding/advancement/story/symbolic_shield.json

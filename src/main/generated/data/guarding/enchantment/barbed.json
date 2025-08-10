@@ -18,7 +18,7 @@
               "min_damage": 3.0
             },
             {
-              "type": "minecraft:damage_item",
+              "type": "minecraft:change_item_damage",
               "amount": 1.0
             }
           ]
@@ -42,7 +42,7 @@
               "min_damage": 3.0
             },
             {
-              "type": "minecraft:damage_item",
+              "type": "minecraft:change_item_damage",
               "amount": 1.0
             }
           ]

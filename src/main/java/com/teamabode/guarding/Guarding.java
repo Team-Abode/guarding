@@ -1,9 +1,7 @@
 package com.teamabode.guarding;
 
+import com.teamabode.guarding.core.event.GuardingItemComponentEvents;
 import com.teamabode.guarding.core.registry.*;
-import com.teamabode.guarding.core.util.ShieldUtils;
-import com.teamabode.sketch.core.api.config.ConfigManager;
-import com.teamabode.sketch.core.api.event.ShieldEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
@@ -20,12 +18,9 @@ public class Guarding implements ModInitializer {
         GuardingSounds.init();
         GuardingParticles.init();
         GuardingCriterions.init();
-        GuardingRecipeSerializers.init();
-        GuardingStats.init();
+        GuardingDataComponentTypes.init();
 
-
-        ShieldEvents.BLOCKED.register(ShieldUtils::onBlocked);
-        ConfigManager.INSTANCE.register(GuardingConfig.INSTANCE);
+        GuardingItemComponentEvents.init();
     }
 
     public static Identifier id(String name) {

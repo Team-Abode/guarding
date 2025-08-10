@@ -1,18 +1,14 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "plugin": "com.teamabode.guarding.core.mixin.GuardingMixinPlugin",
     "package": "com.teamabode.guarding.core.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "TriggerKilledByParriedArrowCriterionMixin",
-        "NetheriteShieldMixin",
-        "NetheriteShieldSoundMixin",
+        "LivingEntityMixin",
         "ProjectileMixin",
-        "ShieldDelayMixin",
-        "ShieldItemMixin",
         "SmithingScreenHandlerMixin",
-        "SmithingTemplateItemMixin"
+        "SmithingTemplateItemMixin",
+        "TriggerKilledByParriedArrowCriterionMixin"
     ],
     "client": [],
     "injectors": {

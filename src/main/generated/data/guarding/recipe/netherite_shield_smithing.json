@@ -1,16 +1,13 @@
 {
-  "type": "guarding:smithing_transform_shield",
-  "addition": {
-    "item": "minecraft:netherite_ingot"
-  },
-  "base": {
-    "item": "minecraft:shield"
-  },
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "minecraft:shield",
   "result": {
-    "count": 1,
+    "components": {
+      "!minecraft:banner_patterns": {},
+      "!minecraft:base_color": {}
+    },
     "id": "guarding:netherite_shield"
   },
-  "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
-  }
+  "template": "minecraft:netherite_upgrade_smithing_template"
 }

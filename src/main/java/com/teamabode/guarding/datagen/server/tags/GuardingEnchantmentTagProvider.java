@@ -9,6 +9,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.EnchantmentTags;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("all")
 public class GuardingEnchantmentTagProvider extends FabricTagProvider<Enchantment> {
     public GuardingEnchantmentTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, RegistryKeys.ENCHANTMENT, registriesFuture);
@@ -16,7 +17,8 @@ public class GuardingEnchantmentTagProvider extends FabricTagProvider<Enchantmen
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.getOrCreateTagBuilder(EnchantmentTags.NON_TREASURE).setReplace(false)
+        this.builder(EnchantmentTags.NON_TREASURE)
+                .setReplace(false)
                 .add(GuardingEnchantments.BARBED)
                 .add(GuardingEnchantments.PUMMELING);
     }

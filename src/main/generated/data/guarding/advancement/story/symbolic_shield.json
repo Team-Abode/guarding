@@ -21,7 +21,11 @@
           }
         ],
         "minecraft:base_color": "blue",
-        "minecraft:hide_additional_tooltip": {}
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:banner_patterns"
+          ]
+        }
       },
       "count": 1,
       "id": "minecraft:shield"

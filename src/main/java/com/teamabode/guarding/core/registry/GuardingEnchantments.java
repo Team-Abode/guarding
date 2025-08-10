@@ -10,8 +10,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentLevelBasedValue;
 import net.minecraft.enchantment.effect.AllOfEnchantmentEffects;
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
+import net.minecraft.enchantment.effect.entity.ChangeItemDamageEnchantmentEffect;
 import net.minecraft.enchantment.effect.entity.DamageEntityEnchantmentEffect;
-import net.minecraft.enchantment.effect.entity.DamageItemEnchantmentEffect;
 import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -45,7 +45,7 @@ public class GuardingEnchantments {
         var enchantment = Enchantment.builder(definition);
         var effects = AllOfEnchantmentEffects.allOf(
                 new DamageEntityEnchantmentEffect(EnchantmentLevelBasedValue.constant(3.0f), EnchantmentLevelBasedValue.constant(3.0f), damageTypes.getOrThrow(DamageTypes.THORNS)),
-                new DamageItemEnchantmentEffect(EnchantmentLevelBasedValue.constant(1.0f))
+                new ChangeItemDamageEnchantmentEffect(EnchantmentLevelBasedValue.constant(1.0f))
         );
         enchantment.addNonListEffect(GuardingEnchantmentEffectComponentTypes.SHIELD_BLOCKED, List.of(
                 new TargetedShieldEnchantmentEffect<>(EnchantmentEffectTarget.ATTACKER, effects, true, Optional.of(RandomChanceLootCondition.builder(0.33f).build()))

@@ -14,9 +14,10 @@ public class GuardingDamageTypeTagProvider extends FabricTagProvider<DamageType>
         super(output, RegistryKeys.DAMAGE_TYPE, registriesFuture);
     }
 
+    @SuppressWarnings("all")
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.getOrCreateTagBuilder(GuardingDamageTypeTags.NO_PARRY)
+        this.builder(GuardingDamageTypeTags.CANNOT_PARRY)
                 .forceAddTag(DamageTypeTags.IS_EXPLOSION)
                 .forceAddTag(DamageTypeTags.BYPASSES_SHIELD);
     }

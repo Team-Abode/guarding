@@ -1,2 +1,2 @@
-// 1.21.1	2024-10-27T13:01:55.2325842	Guarding/Tags for minecraft:damage_type
-f0ee1b9e1756201a9687a340a234b144be639d5e data\guarding\tags\damage_type\no_parry.json
+// 1.21.7	-999999999-01-01T00:00:00	Guarding/Tags for minecraft:damage_type
+f0ee1b9e1756201a9687a340a234b144be639d5e data/guarding/tags/damage_type/cannot_parry.json

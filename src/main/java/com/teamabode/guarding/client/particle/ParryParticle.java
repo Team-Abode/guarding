@@ -3,23 +3,20 @@ package com.teamabode.guarding.client.particle;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.util.math.random.Random;
 
 public class ParryParticle extends SpriteBillboardParticle {
-    private final Random random;
-    private final SpriteProvider sprites;
+    private final SpriteProvider spriteProvider;
 
-    public ParryParticle(ClientWorld clientLevel, double x, double y, double z, SpriteProvider sprites) {
+    public ParryParticle(ClientWorld clientLevel, double x, double y, double z, SpriteProvider spriteProvider) {
         super(clientLevel, x, y, z, 0.0f, 0.0f, 0.0f);
-        this.random = Random.create();
-        this.sprites = sprites;
+        this.spriteProvider = spriteProvider;
         this.maxAge = 6;
         this.scale = 1.0f;
         float tint = this.random.nextFloat() * 0.6f + 0.4f;
         this.red = tint;
         this.green = tint;
         this.blue = tint;
-        this.setSpriteForAge(sprites);
+        this.setSpriteForAge(spriteProvider);
     }
 
     public int getBrightness(float partialTick) {
@@ -27,18 +24,18 @@ public class ParryParticle extends SpriteBillboardParticle {
     }
 
     public void tick() {
-        this.prevPosX = this.x;
-        this.prevPosY = this.y;
-        this.prevPosZ = this.z;
+        this.lastX = this.x;
+        this.lastY = this.y;
+        this.lastZ = this.z;
         if (this.age++ >= this.maxAge) {
             this.markDead();
         } else {
-            this.setSpriteForAge(this.sprites);
+            this.setSpriteForAge(this.spriteProvider);
         }
     }
 
     public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_LIT;
+        return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
     }
 
     public static class Provider implements ParticleFactory<SimpleParticleType> {

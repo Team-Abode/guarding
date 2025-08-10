@@ -6,6 +6,5 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
 public class GuardingDamageTypeTags {
-
-    public static final TagKey<DamageType> NO_PARRY = TagKey.of(RegistryKeys.DAMAGE_TYPE, Guarding.id("no_parry"));
+    public static final TagKey<DamageType> CANNOT_PARRY = TagKey.of(RegistryKeys.DAMAGE_TYPE, Guarding.id("cannot_parry"));
 }

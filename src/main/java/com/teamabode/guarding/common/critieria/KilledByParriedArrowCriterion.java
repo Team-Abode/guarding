@@ -29,11 +29,6 @@ public class KilledByParriedArrowCriterion extends AbstractCriterion<KilledByPar
                 EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("victim").forGetter(TriggerInstance::victim)
         ).apply(instance, TriggerInstance::new));
 
-        public TriggerInstance(Optional<LootContextPredicate> player, Optional<LootContextPredicate> victim) {
-            this.player = player;
-            this.victim = victim;
-        }
-
         public boolean matches(LootContext context) {
             return this.victim.isEmpty() || this.victim.get().test(context);
         }

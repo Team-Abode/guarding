@@ -16,14 +16,17 @@ import net.minecraft.advancement.criterion.RecipeCraftedCriterion;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Unit;
+
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -81,12 +84,16 @@ public class GuardingAdvancementProvider extends FabricAdvancementProvider {
 
     private static void createSymbolicShield(RegistryWrapper.WrapperLookup lookup, Consumer<AdvancementEntry> exporter) {
         var advancement = Advancement.Builder.create();
-        var bannerPatterns = lookup.getWrapperOrThrow(RegistryKeys.BANNER_PATTERN);
+        var bannerPatterns = lookup.getOrThrow(RegistryKeys.BANNER_PATTERN);
 
         ItemStack displayStack = new ItemStack(Items.SHIELD);
         displayStack.set(DataComponentTypes.BASE_COLOR, DyeColor.BLUE);
-        displayStack.set(DataComponentTypes.BANNER_PATTERNS, new BannerPatternsComponent.Builder().add(bannerPatterns.getOrThrow(BannerPatterns.STRIPE_CENTER), DyeColor.YELLOW).build());
-        displayStack.set(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
+
+        displayStack.set(DataComponentTypes.BANNER_PATTERNS, new BannerPatternsComponent.Builder()
+                .add(bannerPatterns.getOrThrow(BannerPatterns.STRIPE_CENTER), DyeColor.YELLOW)
+                .build());
+
+        displayStack.set(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplayComponent.DEFAULT.with(DataComponentTypes.BANNER_PATTERNS, true));
 
         advancement.display(
                 displayStack,
@@ -96,7 +103,10 @@ public class GuardingAdvancementProvider extends FabricAdvancementProvider {
                 AdvancementFrame.TASK,
                 true, true, false
         );
-        advancement.criterion("decorate_shield", RecipeCraftedCriterion.Conditions.create(Identifier.ofVanilla("shield_decoration")));
+
+        RegistryKey<Recipe<?>> entry = GuardingRecipeProvider.keyOf(Identifier.ofVanilla("shield_decoration"));
+
+        advancement.criterion("decorate_shield", RecipeCraftedCriterion.Conditions.create(entry));
         advancement.parent(new AdvancementEntry(Identifier.ofVanilla("story/deflect_arrow"), null));
         advancement.criteriaMerger(AdvancementRequirements.CriterionMerger.AND);
         advancement.build(exporter, SYMBOLIC_SHIELD.toString());

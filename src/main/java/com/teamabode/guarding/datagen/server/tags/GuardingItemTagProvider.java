@@ -14,11 +14,22 @@ public class GuardingItemTagProvider extends FabricTagProvider.ItemTagProvider {
         super(output, completableFuture);
     }
 
+    @SuppressWarnings("all")
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.getOrCreateTagBuilder(GuardingItemTags.SHIELD_ENCHANTABLE).addOptionalTag(ConventionalItemTags.SHIELD_TOOLS);
-        this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE).setReplace(false).add(GuardingItems.NETHERITE_SHIELD);
-        this.getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR).setReplace(false).add(GuardingItems.NETHERITE_SHIELD);
-        this.getOrCreateTagBuilder(ConventionalItemTags.SHIELD_TOOLS).setReplace(false).add(GuardingItems.NETHERITE_SHIELD);
+        this.valueLookupBuilder(GuardingItemTags.SHIELD_ENCHANTABLE)
+                .addOptionalTag(ConventionalItemTags.SHIELD_TOOLS);
+
+        this.valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+                .setReplace(false)
+                .add(GuardingItems.NETHERITE_SHIELD);
+
+        this.valueLookupBuilder(ItemTags.TRIMMABLE_ARMOR)
+                .setReplace(false)
+                .add(GuardingItems.NETHERITE_SHIELD);
+
+        this.valueLookupBuilder(ConventionalItemTags.SHIELD_TOOLS)
+                .setReplace(false)
+                .add(GuardingItems.NETHERITE_SHIELD);
     }
 }
