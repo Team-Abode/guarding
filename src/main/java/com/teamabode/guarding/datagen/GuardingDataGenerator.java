@@ -1,6 +1,7 @@
 package com.teamabode.guarding.datagen;
 
 import com.teamabode.guarding.core.registry.GuardingEnchantments;
+import com.teamabode.guarding.datagen.client.GuardingModelProvider;
 import com.teamabode.guarding.datagen.server.GuardingDynamicRegistryProvider;
 import com.teamabode.guarding.datagen.server.GuardingAdvancementProvider;
 import com.teamabode.guarding.datagen.server.tags.GuardingDamageTypeTagProvider;
@@ -17,6 +18,10 @@ public class GuardingDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();
 
+        // Client
+        pack.addProvider(GuardingModelProvider::new);
+
+        // Server
         pack.addProvider(GuardingAdvancementProvider::new);
         pack.addProvider(GuardingRecipeProvider::new);
         pack.addProvider(GuardingDynamicRegistryProvider::new);

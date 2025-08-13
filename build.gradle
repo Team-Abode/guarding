@@ -30,7 +30,9 @@ base {
 }
 
 fabricApi {
-	configureDataGeneration()
+	configureDataGeneration() {
+		client = true
+	}
 }
 
 processResources {

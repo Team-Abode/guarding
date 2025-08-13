@@ -1,17 +1,23 @@
 package com.teamabode.guarding.core.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.teamabode.guarding.Guarding;
 import com.teamabode.guarding.common.component.ParriesAttacksComponent;
+import com.teamabode.guarding.core.access.ProjectileAccessor;
+import com.teamabode.guarding.core.registry.GuardingCriterions;
 import com.teamabode.guarding.core.registry.GuardingDataComponentTypes;
 import com.teamabode.guarding.core.util.EnchantmentUtils;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -42,5 +48,22 @@ public class LivingEntityMixin {
         if (performedParry) {
             parriesAttacksComponent.onParrySuccess(world, $this, stack, source);
         }
+    }
+
+    @Inject(
+            method = "onDeath",
+            at = @At("HEAD")
+    )
+    private void guarding$onDeath(DamageSource source, CallbackInfo ci) {
+        LivingEntity $this = LivingEntity.class.cast(this);
+        Entity directEntity = source.getSource();
+
+
+        if (!(directEntity instanceof ProjectileAccessor access)) return;
+
+
+        if (!(access.getParrier() instanceof ServerPlayerEntity player)) return;
+
+        GuardingCriterions.KILLED_BY_PARRIED_ARROW.trigger(player, $this);
     }
 }

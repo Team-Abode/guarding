@@ -58,11 +58,16 @@ public record ParriesAttacksComponent(float windowSeconds, float knockbackStreng
         Entity sourceEntity = source.getSource();
 
         if (sourceEntity instanceof ProjectileEntity projectile) {
-            ((ProjectileAccessor) projectile).setParrier(user);
+            if (projectile instanceof ProjectileAccessor accessor) {
 
-            projectile.setVelocity(projectile.getVelocity().multiply(5.0d));
-            float reverseRot = 170.0F + projectile.getRandom().nextFloat() * 20.0F;
-            projectile.setYaw(projectile.getYaw() + reverseRot);
+                Guarding.LOGGER.info("Setting parrier to {}", user.getName().getLiteralString());
+
+                accessor.setParrier(user);
+            }
+
+            projectile.setVelocity(projectile.getVelocity().multiply(7.5d));
+            projectile.setYaw(projectile.getYaw() + 180.0f);
+
             projectile.velocityDirty = true;
         }
         else if (sourceEntity instanceof LivingEntity livingEntity) {

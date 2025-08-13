@@ -15,7 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 
 @Mixin(ProjectileEntity.class)
-public class ProjectileMixin implements ProjectileAccessor {
+public class ProjectileEntityMixin implements ProjectileAccessor {
     @Unique
     private final ProjectileEntity $this = ProjectileEntity.class.cast(this);
 
@@ -24,7 +24,7 @@ public class ProjectileMixin implements ProjectileAccessor {
 
     @Inject(method = "readCustomData", at = @At("HEAD"))
     private void guarding$readCustomData(ReadView view, CallbackInfo ci) {
-        this.parrier = LazyEntityReference.fromData(view, "parrier");
+        this.setParrier(LazyEntityReference.fromData(view, "parrier"));
     }
 
     @Inject(method = "writeCustomData", at = @At("HEAD"))
@@ -39,6 +39,11 @@ public class ProjectileMixin implements ProjectileAccessor {
 
     @Override
     public void setParrier(@Nullable Entity parrier) {
-        this.parrier = this.parrier != null ? new LazyEntityReference<>(parrier) : null;
+        this.setParrier(parrier != null ? new LazyEntityReference<>(parrier) : null);
+    }
+
+    @Override
+    public void setParrier(@Nullable LazyEntityReference<Entity> parrier) {
+        this.parrier = parrier;
     }
 }
