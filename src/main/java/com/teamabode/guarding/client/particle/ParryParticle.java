@@ -11,7 +11,7 @@ public class ParryParticle extends SpriteBillboardParticle {
         super(clientLevel, x, y, z, 0.0f, 0.0f, 0.0f);
         this.spriteProvider = spriteProvider;
         this.maxAge = 6;
-        this.scale = 0.75f;
+        this.scale = 0.5f;
         float tint = this.random.nextFloat() * 0.6f + 0.4f;
         this.red = tint;
         this.green = tint;

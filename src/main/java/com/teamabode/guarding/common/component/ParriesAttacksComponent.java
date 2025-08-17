@@ -18,9 +18,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.dynamic.Codecs;
@@ -89,7 +92,6 @@ public record ParriesAttacksComponent(float windowSeconds, float knockbackStreng
         ));
 
         if (this.spawnsParticle() && sourceEntity != null) {
-            Guarding.LOGGER.info("Spawning particle!");
 
             boolean isProjectile = sourceEntity instanceof ProjectileEntity;
 
